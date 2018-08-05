@@ -11,11 +11,19 @@ package gestionusuarios;
  */
 public class Editar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Editar
-     */
+    ControlUsuarios us = null;
+    Usuario u = null;
+            
     public Editar() {
         initComponents();
+    }
+    
+    public void cacharControlUsuarios(ControlUsuarios us) {
+        this.us = us;
+    }
+    
+    public void cacharUsuario(Usuario u) {
+        this.u = u;
     }
 
     /**
@@ -48,7 +56,7 @@ public class Editar extends javax.swing.JFrame {
 
         jLabel4.setText("Edad:");
 
-        jButton1.setText("Editar");
+        jButton1.setText("Guardar");
 
         jButton2.setText("Cancelar");
 

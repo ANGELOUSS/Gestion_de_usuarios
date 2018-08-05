@@ -5,6 +5,8 @@
  */
 package gestionusuarios;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Soulu
@@ -13,9 +15,23 @@ public class Login extends javax.swing.JFrame {
     
     Registro registro = new Registro();
     Gestion gestion  = new Gestion();
+    ControlUsuarios cu = null;
+    
+    public Login(ControlUsuarios u) {
+        initComponents();
+        
+        if(u == null){
+            cu = new ControlUsuarios();
+        } else {
+          cu = u;  
+        }
+    }
     
     public Login() {
         initComponents();
+        if(cu == null){
+            cu = new ControlUsuarios();
+        }
     }
 
     /**
@@ -98,13 +114,26 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
+        registro.cacharControlUsuarios(cu);
         registro.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        gestion.setVisible(true);
-        this.dispose();
+        Usuario sesion = null;
+        if(!jTextField1.equals("") && !jPasswordField1.equals("")){
+            sesion = cu.verificarSesion(jTextField1.getText(), jPasswordField1.getText());
+            if(sesion != null){
+                gestion.cacharSesion(sesion);
+                gestion.cacharControlUsuarios(cu);
+                gestion.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "error", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese usurio y contraseña", "error", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -10,12 +10,30 @@ package gestionusuarios;
  * @author Soulu
  */
 public class Gestion extends javax.swing.JFrame {
+    String [] columnas = {"ID","NOMBRE","USUARIO","CONTRASEÑA","EDAD"};
     
     Registro registro = new Registro();
+    ControlUsuarios us = null;
+    Usuario sesion = null;
+    ControlTablaUsuarios tabla = null;
     
     public Gestion() {
-        initComponents();
+        initComponents();   
     }
+    
+    public void cacharControlUsuarios(ControlUsuarios u) {
+        this.us = u;
+        tabla = new ControlTablaUsuarios(this.jTable1,this.columnas,this.us);
+    }
+    public ControlUsuarios enviarControlUsuarios(){
+        return this.us;
+    }
+    
+    public void cacharSesion(Usuario u) {
+        this.sesion = u;
+        jLabel1.setText("Hola "+u.getUserName()+" como esta");
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +107,11 @@ public class Gestion extends javax.swing.JFrame {
         );
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +187,12 @@ public class Gestion extends javax.swing.JFrame {
         this.setVisible(false);
         this.registro.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int id = Integer.parseInt(this.jTextField1.getText());
+        us.eliminarUsuario(id);
+        tabla.eliminarFila(id-1);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -10,12 +10,20 @@ package gestionusuarios;
  * @author Soulu
  */
 public class Registro extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Registro
-     */
+    
+    ControlUsuarios cus = null;
+    
     public Registro() {
         initComponents();
+        
+    }
+    
+    public void cacharControlUsuarios(ControlUsuarios c) {
+        this.cus = c;
+    }
+    
+    public ControlUsuarios enviarControlUsuarios() {
+        return this.cus;
     }
 
     /**
@@ -122,11 +130,18 @@ public class Registro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // T
+        if(cus.checarExistencia()){
+            cus.agregarUsuario(new Usuario(jTextField3.getText(),jTextField1.getText(),jTextField2.getText(), Integer.parseInt(jTextField4.getText()),1));
+        }else{
+            int id = cus.getIdFinal() + 1;
+            cus.agregarUsuario(new Usuario(jTextField3.getText(),jTextField1.getText(),jTextField2.getText(), Integer.parseInt(jTextField4.getText()),id));
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
+        Login login = new Login(cus);
+        login.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

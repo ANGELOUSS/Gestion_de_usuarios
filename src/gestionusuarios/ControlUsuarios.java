@@ -18,6 +18,15 @@ public class ControlUsuarios {
         this.usuarios.add(us);
     }
     
+    public boolean checarExistencia() {
+        return this.usuarios.isEmpty();
+    }
+    
+    public int getIdFinal() {
+        return this.usuarios.get(this.usuarios.size()-1).getId();
+    }
+    
+    
     public void eliminarUsuario(int id) {
         int indice = 0;
         for(Usuario u : this.usuarios){
@@ -28,5 +37,30 @@ public class ControlUsuarios {
             indice++;
         }
     }
+    
+    public Usuario buscarUsuario(int id) {
+        int indice = 0;
+        for(Usuario u : this.usuarios){
+            if(u.getId() == id){
+               return u;
+            }
+            indice++;
+        }
+        return null;
+    }
+    
+    public Usuario verificarSesion(String username, String pass) {
+        for(Usuario u : this.usuarios){
+            if(u.getUserName().equals(username) && u.getPasword().equals(pass)){
+               return u;
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Usuario> getArregloUsuarios(){
+        return this.usuarios;
+    }
+    
     
 }
